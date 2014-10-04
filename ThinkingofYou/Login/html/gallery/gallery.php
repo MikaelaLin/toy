@@ -109,31 +109,31 @@ function myFunction5() {
         <!-- Wrapper for Slides -->
         <div class="carousel-inner">
             <div class="item active">
-                <div class="fill" style="background-image:url('image/lin/1.jpg');" onclick="myFunction1()"></div>
+                <div class="fill" style="background-image:url('../image/lin/1.jpg');" onclick="myFunction1()"></div>
                 <div class="carousel-caption">
                     <h2>Nurka</h2>
                 </div>
             </div>
             <div class="item">
-                <div class="fill" style="background-image:url('image/lin/2.jpg');" onclick="myFunction2()"></div>
+                <div class="fill" style="background-image:url('../image/lin/2.jpg');" onclick="myFunction2()"></div>
                 <div class="carousel-caption">
                     <h2><font color="#81d8d0">Seyeon</font></h2>
                 </div>
             </div>
             <div class="item">
-                <div class="fill" style="background-image:url('image/lin/3.jpg');" onclick="myFunction3()"></div>
+                <div class="fill" style="background-image:url('../image/lin/3.jpg');" onclick="myFunction3()"></div>
                 <div class="carousel-caption">
                     <h2><font color="87c540">Enrique</font></h2>
                 </div>
             </div>
             <div class="item">
-                <div class="fill" style="background-image:url('image/lin/4.jpg');" onclick="myFunction4()"></div>
+                <div class="fill" style="background-image:url('../image/lin/4.jpg');" onclick="myFunction4()"></div>
                 <div class="carousel-caption">
                     <h2><font color="ffcb00">Lin</font></h2>
                 </div>
             </div>
             <div class="item">
-                <div class="fill" style="background-image:url('image/lin/5.jpg');" onclick="myFunction5()"></div>
+                <div class="fill" style="background-image:url('../image/lin/5.jpg');" onclick="myFunction5()"></div>
                 <div class="carousel-caption">
                     <h2><font color="d73249">Catherine</font></h2>
                 </div>
