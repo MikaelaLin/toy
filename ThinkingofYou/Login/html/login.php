@@ -1,7 +1,7 @@
 <?php
-error_reporting(E_ALL); ini_set('display_errors', 'On'); 
-ob_start();
-//Start session
+//error_reporting(E_ALL); ini_set('display_errors', 'On'); 
+        ob_start();
+        //Start session
 	session_start();
  
 	//Include database connection details
@@ -55,10 +55,9 @@ ob_start();
 			session_regenerate_id();
 			$user = mysql_fetch_assoc($result);
 			$_SESSION['SESS_USER_ID'] = $user['userID'];
-			$_SESSION['SESS_FIRST_NAME'] = $user['userName'];
-                        $_SESSION['SESS_LAST_NAME'] = $user['password'];
-			session_write_close();
-                        header("location: gallery/index.html");//remember to change to the photo slider page
+			$_SESSION['SESS_USER_NAME'] = $user['userName'];
+                        session_write_close();
+                        header("location: gallery/gallery.php");
 			exit();
 		}else {
 			//Login failed
