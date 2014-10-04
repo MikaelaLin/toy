@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<!-- 
+			This carousel example is created with jQuery and the carouFredSel-plugin.
+			http://jquery.com
+			http://caroufredsel.frebsite.nl
+		-->
+
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1" />
+		<meta name="description" value="An example of a fluid/liquid/responsive full window width carousel with the previous and next image truncated on the sides." />
+		<meta name="keywords" value="example, carousel, full, fluid, liquid, window, width" />
+		<title>Fluid full window width carousel with truncated previous and next images</title>
+
+		<script src="http://code.jquery.com/jquery-1.8.2.min.js" type="text/javascript"></script>
+		<script src="jquery.carouFredSel-6.0.4-packed.js" type="text/javascript"></script>
+		<script type="text/javascript">
+			$(function() {
+				$('#carousel').carouFredSel({
+					width: '100%',
+					items: {
+						visible: 3,
+						start: -1
+					},
+					scroll: {
+						items: 1,
+						duration: 1000,
+						timeoutDuration: 3000
+					},
+					prev: '#prev',
+					next: '#next',
+					pagination: {
+						container: '#pager',
+						deviation: 1
+					}
+				});
+			});
+		</script>
+		<style type="text/css">
+			html, body {
+				height: 100%;
+				padding: 0;
+				margin: 0;
+			}
+			body {
+				min-height: 500px;
+			}
+			body * {
+				font-family: Arial, Geneva, SunSans-Regular, sans-serif;
+				font-size: 14px;
+				color: #333;
+				line-height: 22px;
+			}
+			#wrapper {
+				background-color: #fff;
+				width: 100%;
+				height: 450px;
+				margin-top: -225px;
+				overflow: hidden;
+				position: absolute;
+				top: 50%;
+				left: 0;
+			}
+			#carousel img {
+				display: block;
+				float: left;
+			}
+			#prev, #next {
+				background-color: rgba(255, 255, 255, 0.7);
+				display: block;
+				height: 450px;
+				width: 50%;
+				top: 0;
+				position: absolute;
+			}
+			#prev:hover, #next:hover {
+				background-color: #fff;
+				background-color: rgba(255, 255, 255, 0.8);
+			}
+			#prev {
+				left: -495px;
+			}
+			#next {
+				right: -495px;
+			}
+			#pager {
+				margin-left: -470px;
+				position: absolute;
+				left: 50%;
+				bottom: 10px;
+			}
+			#pager a {
+				border: 2px solid #fff;
+				border-radius: 10px;
+				display: inline-block;
+				width: 10px;
+				height: 10px;
+				margin: 0 5px 0 0;
+			}
+			#pager a:hover {
+				background-color: rgba(255, 255, 255, 0.5);
+			}
+			#pager a span {
+				display: none;
+			}
+			#pager a.selected {
+				background-color: #fff;
+			}
+			
+			#donate-spacer {
+				height: 100%;
+			}
+			#donate {
+				border-top: 1px solid #999;
+				width: 750px;
+				padding: 50px 75px;
+				margin: 0 auto;
+				overflow: hidden;
+			}
+			#donate p, #donate form {
+				margin: 0;
+				float: left;
+			}
+			#donate p {
+				width: 650px;
+			}
+			#donate form {
+				width: 100px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="wrapper">
+			<div id="carousel">
+				<img src="img/building1.jpg" alt="building1" width="990" height="450" />
+				<img src="img/building2.jpg" alt="building2" width="990" height="450" />
+				<img src="img/building3.jpg" alt="building3" width="990" height="450" />
+				<img src="img/building4.jpg" alt="building4" width="990" height="450" />
+				<img src="img/building5.jpg" alt="building5" width="990" height="450" />
+				<img src="img/building6.jpg" alt="building6" width="990" height="450" />
+			</div>
+			<a href="#" id="prev" title="Show previous"> </a>
+			<a href="#" id="next" title="Show next"> </a>
+			<div id="pager"></div>
+		</div>
+		<div id="donate-spacer"></div>
+		<div id="donate">
+			<p>This carousel-example is created for your inspiration, you may use it for free in all of your projects.<br />
+				If you like it, please help me &quot;keep up the good work&quot; and donate.</p>
+			<form id="c-donate" action="https://www.paypal.com/cgi-bin/webscr" method="post">
+				<input type="hidden" name="cmd" value="_s-xclick" />
+				<input type="hidden" name="hosted_button_id" value="ENVLWPR4QMU3U" />
+				<input type="image" src="https://www.paypalobjects.com/en_US/NL/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!" />
+				<img alt="" border="0" src="https://www.paypalobjects.com/nl_NL/i/scr/pixel.gif" width="1" height="1" />
+			</form>
+		</div>
+	</body>
+</html>
