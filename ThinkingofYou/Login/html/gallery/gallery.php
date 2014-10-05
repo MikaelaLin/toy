@@ -8,6 +8,11 @@ ob_start();
 //Include database connection details
 require_once('../dbconnection.php');
 
+//Array to store validation errors
+$errmsg_arr = array();
+ //Validation error flag
+$errflag = false;
+
 ?>
 
 <!DOCTYPE html>
@@ -106,6 +111,36 @@ function myFunction5() {
             <li data-target="#myCarousel" data-slide-to="4"></li>
         </ol>
 
+        <?php
+        $userID = $_SESSION['SESS_USER_ID'];
+        $query = "select location from photo where userID = '$userID'";
+        $result=mysql_query($query);
+        //$resultarray = mysql_fetch_assoc($result);
+        if($result) {
+		if(mysql_num_rows($result) > 0) {
+                    /*foreach ($resultarray as $array){
+                        echo "$array";
+                    }*/
+                    while ($data = mysql_fetch_assoc($result)) {
+                        echo $data['location'];
+                    }
+			exit();
+		}else {
+			//Login failed
+			$errmsg_arr[] = 'no image found';
+			$errflag = true;
+			if($errflag) {
+				$_SESSION['ERRMSG_ARR'] = $errmsg_arr;
+				session_write_close();
+                                
+				exit();
+			}
+		}
+	}else {
+		die("Query failed");
+	}
+        
+        ?>
         <!-- Wrapper for Slides -->
         <div class="carousel-inner">
             <div class="item active">
