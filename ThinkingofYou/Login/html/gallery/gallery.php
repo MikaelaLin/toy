@@ -45,7 +45,16 @@ $errflag = false;
 
 <body>
 <script>
-function myFunction1() {
+function myFunction() {
+
+    if (confirm("Send a message to say: 'I am thinking of You'.") == true) {
+    } else {
+
+    }
+    document.getElementById("demo").innerHTML = x;
+}
+
+    function myFunction1() {
 
     if (confirm("Send a message to Nurka") == true) {
     } else {
@@ -111,20 +120,32 @@ function myFunction5() {
             <li data-target="#myCarousel" data-slide-to="4"></li>
         </ol>
 
+<div class='carousel-inner'>
         <?php
         $userID = $_SESSION['SESS_USER_ID'];
-        $query = "select location from photo where userID = '$userID'";
+        $query = "select * from photo where userID = '$userID' and flag = 1";
         $result=mysql_query($query);
         //$resultarray = mysql_fetch_assoc($result);
         if($result) {
 		if(mysql_num_rows($result) > 0) {
+                    
                     /*foreach ($resultarray as $array){
                         echo "$array";
                     }*/
                     while ($data = mysql_fetch_assoc($result)) {
-                        echo $data['location'];
+  
+                        //echo "<div class='carousel-inner'>";
+                        echo "<div class='item active'>";
+                        echo "<div class='fill'"."$nbsp style='background-image:url("; 
+                        echo "../image/".$data['location']; 
+                        echo ");' onclick='myFunction()'></div>";
+                        echo "<div class='carousel-caption'>";
+                        echo "<h2>"."<font color='".$data['color']."'>".$data['firstName']."</font></h2>";
+                        //echo "<h2>Nurka</h2>";
+                        echo "</div>";
+                        echo "</div>";
                     }
-			exit();
+			//exit();
 		}else {
 			//Login failed
 			$errmsg_arr[] = 'no image found';
@@ -140,39 +161,49 @@ function myFunction5() {
 		die("Query failed");
 	}
         
+        $query1 = "select * from photo where userID = '$userID' and flag = 0";
+        $result1=mysql_query($query1);
+        //$resultarray = mysql_fetch_assoc($result);
+        if($result1) {
+		if(mysql_num_rows($result1) > 0) {
+                    
+                    /*foreach ($resultarray as $array){
+                        echo "$array";
+                    }*/
+                    while ($data = mysql_fetch_assoc($result1)) {
+  
+                        //echo "<div class='carousel-inner'>";
+                        echo "<div class='item'>";
+                        echo "<div class='fill'"."$nbsp style='background-image:url("; 
+                        echo "../image/".$data['location']; 
+                        echo ");' onclick='myFunction()'></div>";
+                        echo "<div class='carousel-caption'>";
+                        echo "<h2>"."<font color='".$data['color']."'>".$data['firstName']."</font></h2>";
+                        //echo "<h2>Nurka</h2>";
+                        echo "</div>";
+                        echo "</div>";
+                    }
+			//exit();
+		}else {
+			//Login failed
+			$errmsg_arr[] = 'no image found';
+			$errflag = true;
+			if($errflag) {
+				$_SESSION['ERRMSG_ARR'] = $errmsg_arr;
+				session_write_close();
+                                
+				exit();
+			}
+		}
+	}else {
+		die("Query failed");
+	}
+        
+        
         ?>
         <!-- Wrapper for Slides -->
-        <div class="carousel-inner">
-            <div class="item active">
-                <div class="fill" style="background-image:url('../image/lin/1.jpg');" onclick="myFunction1()"></div>
-                <div class="carousel-caption">
-                    <h2>Nurka</h2>
-                </div>
-            </div>
-            <div class="item">
-                <div class="fill" style="background-image:url('../image/lin/2.jpg');" onclick="myFunction2()"></div>
-                <div class="carousel-caption">
-                    <h2><font color="#81d8d0">Seyeon</font></h2>
-                </div>
-            </div>
-            <div class="item">
-                <div class="fill" style="background-image:url('../image/lin/3.jpg');" onclick="myFunction3()"></div>
-                <div class="carousel-caption">
-                    <h2><font color="87c540">Enrique</font></h2>
-                </div>
-            </div>
-            <div class="item">
-                <div class="fill" style="background-image:url('../image/lin/4.jpg');" onclick="myFunction4()"></div>
-                <div class="carousel-caption">
-                    <h2><font color="ffcb00">Lin</font></h2>
-                </div>
-            </div>
-            <div class="item">
-                <div class="fill" style="background-image:url('../image/lin/5.jpg');" onclick="myFunction5()"></div>
-                <div class="carousel-caption">
-                    <h2><font color="d73249">Catherine</font></h2>
-                </div>
-            </div>
+     
+            
         </div>
 
         <!-- Controls -->
