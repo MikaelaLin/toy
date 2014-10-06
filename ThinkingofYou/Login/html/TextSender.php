@@ -1,5 +1,6 @@
 <?php
-    /* Send an SMS using Twilio. You can run this file 3 different ways:
+    session_start();    
+/* Send an SMS using Twilio. You can run this file 3 different ways:
      *
      * - Save it as sendnotifications.php and at the command line, run 
      *        php sendnotifications.php
@@ -50,16 +51,16 @@
 //        // Display a confirmation message on the screen
 //        echo "Sent message to $name";
 //    }
-    
+        echo $_GET["number"] . "\nHi " . $_GET["name"] . ", I am thinking of you. From: " . $_SESSION['SESS_USER_NAME'];
 
         $sms = $client->account->messages->sendMessage(
 
         // Step 6: Change the 'From' number below to be a valid Twilio number 
         // that you've purchased, or the (deprecated) Sandbox number
-            "484-200-7064", 
+            "484-200-7063", 
 
             // the number we are sending to - Any phone number
-            $GET_["number"],
+            $_GET["number"],
 
             // the sms body
             "Hi " . $_GET["name"] . ", I am thinking of you. From: " . $_SESSION['SESS_USER_NAME']

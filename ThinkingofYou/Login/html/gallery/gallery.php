@@ -50,6 +50,9 @@ function myFunction(firstName, phoneNumber) {
     if (confirm("Send a message to say: 'I am thinking of You'.") == true) {
         
         alert(firstName + " " + phoneNumber);//print
+        alert("TextSender.php"
+                + "?name=" + encodeURIComponent(firstName)
+                + "&number=" + encodeURIComponent(phoneNumber));
         
         var xmlhttp=new XMLHttpRequest();
         xmlhttp.open("GET","TextSender.php"
