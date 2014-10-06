@@ -4,7 +4,7 @@ require_once('auth.php');
 
 ob_start();
 //Start session
-//session_start();
+session_start();
 //Include database connection details
 require_once('../dbconnection.php');
 
@@ -45,69 +45,50 @@ $errflag = false;
 
 <body>
 <script>
-function myFunction() {
+function myFunction(firstName, phoneNumber) {
 
     if (confirm("Send a message to say: 'I am thinking of You'.") == true) {
+        
+        alert(firstName + " " + phoneNumber);//print
+        
+        var xmlhttp=new XMLHttpRequest();
+        xmlhttp.open("GET","TextSender.php"
+                + "?name=" + encodeURIComponent(firstName)
+                + "&number=" + encodeURIComponent(phoneNumber)
+                ,true);
+        xmlhttp.send();
     } else {
 
     }
     document.getElementById("demo").innerHTML = x;
 }
 
-    function myFunction1() {
-
-    if (confirm("Send a message to Nurka") == true) {
-    } else {
-
-    }
-    document.getElementById("demo").innerHTML = x;
-}
-</script>
-
-<script>
-function myFunction2() {
-
-    if (confirm("Send a message to Seyeon") == true) {
-    } else {
-
-    }
-    document.getElementById("demo").innerHTML = x;
-}
-</script>
-
-<script>
-function myFunction3() {
-
-    if (confirm("Send a message to Enrique") == true) {
-    } else {
-
-    }
-    document.getElementById("demo").innerHTML = x;
-}
-</script>
-
-<script>
-function myFunction4() {
-
-    if (confirm("Send a message to Lin") == true) {
-    } else {
-
-    }
-    document.getElementById("demo").innerHTML = x;
+function log(location, pageName, linkName) {
+    
+    alert ("[" + location + "][" + pageName + "][" + linkName + "]");
+    
+    if (location === null || location === "") location = "NULL";
+    
+    //if no pageName given, use document title
+    if (pageName === "" || pageName === null) pageName = document.title;
+    
+    alert("../log.php?location=" + encodeURIComponent(location)
+            + "&pageName=" + encodeURIComponent(pageName)
+            + "&linkName=" + encodeURIComponent(linkName));
+    
+    var xmlhttp=new XMLHttpRequest();
+//    xmlhttp.open("POST","../log.php",true);
+//    xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+//    xmlhttp.send("location=" + encodeURIComponent(location)
+//            + "&pageName=" + encodeURIComponent(pageName)
+//            + "&linkName=" + encodeURIComponent(linkName)
+    xmlhttp.open("GET","../log.php"
+            + "?location=" + encodeURIComponent(location)
+            + "&pageName=" + encodeURIComponent(pageName)
+            + "&linkName=" + encodeURIComponent(linkName),true);
+    xmlhttp.send();
 }
 </script>
-
-<script>
-function myFunction5() {
-
-    if (confirm("Send a message to Catherine") == true) {
-    } else {
-
-    }
-    document.getElementById("demo").innerHTML = x;
-}
-</script>
-
 
     <!-- Full Page Image Background Carousel Header -->
     <header id="myCarousel" class="carousel slide">
@@ -123,9 +104,13 @@ function myFunction5() {
 <div class='carousel-inner'>
         <?php
         $userID = $_SESSION['SESS_USER_ID'];
+        $userName = $_SESSION['SESS_USER_NAME'];
         $query = "select * from photo where userID = '$userID' and flag = 1";
         $result=mysql_query($query);
         //$resultarray = mysql_fetch_assoc($result);
+        
+        $users = array();
+        
         if($result) {
 		if(mysql_num_rows($result) > 0) {
                     
@@ -138,12 +123,16 @@ function myFunction5() {
                         echo "<div class='item active'>";
                         echo "<div class='fill'"."$nbsp style='background-image:url("; 
                         echo "../image/".$data['location']; 
-                        echo ");' onclick='myFunction()'></div>";
+                        echo ");' onclick='myFunction(\"".$data['firstName']."\",\"".$data['phoneNumber']."\")'></div>";
                         echo "<div class='carousel-caption'>";
                         echo "<h2>"."<font color='".$data['color']."'>".$data['firstName']."</font></h2>";
                         //echo "<h2>Nurka</h2>";
                         echo "</div>";
                         echo "</div>";
+                        
+                        //echo "<div id=\"name\" style=\"visibility=hidden;\" >".$data['firstName']."</div>";
+                        //echo "<div id=\"number\" style=\"visibility=hidden;\" >".$data['phoneNumber']."</div>";
+                        
                     }
 			//exit();
 		}else {
@@ -176,7 +165,7 @@ function myFunction5() {
                         echo "<div class='item'>";
                         echo "<div class='fill'"."$nbsp style='background-image:url("; 
                         echo "../image/".$data['location']; 
-                        echo ");' onclick='myFunction()'></div>";
+                        echo ");' onclick='myFunction(\"".$data['firstName']."\", \"".$data['phoneNumber']."\")'></div>";
                         echo "<div class='carousel-caption'>";
                         echo "<h2>"."<font color='".$data['color']."'>".$data['firstName']."</font></h2>";
                         //echo "<h2>Nurka</h2>";

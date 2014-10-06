@@ -4,7 +4,7 @@ require_once('auth.php');
 
 ob_start();
 //Start session
-//session_start();
+session_start();
 //Include database connection details
 require_once('../dbconnection.php');
 
@@ -46,18 +46,65 @@ $errflag = false;
 
 <body>
 
+<script>
+function myFunction(firstName, phoneNumber) {
+
+    if (confirm("Send a message to say: 'I am thinking of You'.") == true) {
+        
+        alert(firstName + " " + phoneNumber);//print
+        
+        var xmlhttp=new XMLHttpRequest();
+        xmlhttp.open("GET","TextSender.php"
+                + "?name=" + encodeURIComponent(firstName)
+                + "&number=" + encodeURIComponent(phoneNumber)
+                ,true);
+        xmlhttp.send();
+    } else {
+
+    }
+    document.getElementById("demo").innerHTML = x;
+}
+
+function log(location, pageName, linkName) {
+    
+    alert ("[" + location + "][" + pageName + "][" + linkName + "]");
+    
+    if (location === null || location === "") location = "NULL";
+    
+    //if no pageName given, use document title
+    if (pageName === "" || pageName === null) pageName = document.title;
+    
+    alert("../log.php?location=" + encodeURIComponent(location)
+            + "&pageName=" + encodeURIComponent(pageName)
+            + "&linkName=" + encodeURIComponent(linkName));
+    
+    var xmlhttp=new XMLHttpRequest();
+//    xmlhttp.open("POST","../log.php",true);
+//    xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+//    xmlhttp.send("location=" + encodeURIComponent(location)
+//            + "&pageName=" + encodeURIComponent(pageName)
+//            + "&linkName=" + encodeURIComponent(linkName)
+    xmlhttp.open("GET","../log.php"
+            + "?location=" + encodeURIComponent(location)
+            + "&pageName=" + encodeURIComponent(pageName)
+            + "&linkName=" + encodeURIComponent(linkName),true);
+    xmlhttp.send();
+}
+</script>
+
     <!-- Page Content -->
     <div class="container">
 
         <!-- Page Header -->
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header"><a href='../gallery/gallery.php'>Thinking of You</a></h1> 
+                <h1 class="page-header"><a href='../gallery/gallery.php' onclick="log(null,null,'back to slider')">Thinking of You</a></h1> 
             </div>
         </div>
         <!-- /.row -->
 <?php
         $userID = $_SESSION['SESS_USER_ID'];
+        $userName = $_SESSION['SESS_USER_NAME'];
         $query = "select * from photo where userID = '$userID' and relationship = 'Friend'";
         $result=mysql_query($query);
         //$resultarray = mysql_fetch_assoc($result);
