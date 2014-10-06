@@ -55,7 +55,7 @@ function myFunction(firstName, phoneNumber) {
                 + "&number=" + encodeURIComponent(phoneNumber));
         
         var xmlhttp=new XMLHttpRequest();
-        xmlhttp.open("GET","TextSender.php"
+        xmlhttp.open("GET","../TextSender.php"
                 + "?name=" + encodeURIComponent(firstName)
                 + "&number=" + encodeURIComponent(phoneNumber)
                 ,true);
