@@ -56,6 +56,7 @@
 			$user = mysql_fetch_assoc($result);
 			$_SESSION['SESS_USER_ID'] = $user['userID'];
 			$_SESSION['SESS_USER_NAME'] = $user['userName'];
+                        logLogin($user['userName']);
                         session_write_close();
                         header("location: gallery/gallery.php");
 			exit();
@@ -73,4 +74,11 @@
 	}else {
 		die("Query failed");
 	}
+        
+function logLogin($username) {
+    $query = "INSERT INTO log (userName, pageName)
+    VALUES ('" . $username . "', 'login')";
+
+    mysql_query($query);
+}
 ?>

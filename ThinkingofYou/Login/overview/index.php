@@ -54,7 +54,7 @@ function myFunction(firstName, phoneNumber) {
         alert(firstName + " " + phoneNumber);//print
         
         var xmlhttp=new XMLHttpRequest();
-        xmlhttp.open("GET","TextSender.php"
+        xmlhttp.open("GET","../TextSender.php"
                 + "?name=" + encodeURIComponent(firstName)
                 + "&number=" + encodeURIComponent(phoneNumber)
                 ,true);
@@ -69,14 +69,8 @@ function log(location, pageName, linkName) {
     
     alert ("[" + location + "][" + pageName + "][" + linkName + "]");
     
-    if (location === null || location === "") location = "NULL";
-    
     //if no pageName given, use document title
     if (pageName === "" || pageName === null) pageName = document.title;
-    
-    alert("../log.php?location=" + encodeURIComponent(location)
-            + "&pageName=" + encodeURIComponent(pageName)
-            + "&linkName=" + encodeURIComponent(linkName));
     
     var xmlhttp=new XMLHttpRequest();
 //    xmlhttp.open("POST","../log.php",true);
@@ -84,10 +78,18 @@ function log(location, pageName, linkName) {
 //    xmlhttp.send("location=" + encodeURIComponent(location)
 //            + "&pageName=" + encodeURIComponent(pageName)
 //            + "&linkName=" + encodeURIComponent(linkName)
-    xmlhttp.open("GET","../log.php"
-            + "?location=" + encodeURIComponent(location)
-            + "&pageName=" + encodeURIComponent(pageName)
-            + "&linkName=" + encodeURIComponent(linkName),true);
+
+    var encodeString = "../log.php?pageName=" + encodeURIComponent(pageName);
+    if (location !== "" && location.toLowerCase() !== "null") {
+        encodeString += "&location=" + encodeURIComponent(location);
+    }
+    if (linkName !== "" && linkName.toLowerCase() !== "null") {
+        encodeString += "&linkName=" + encodeURIComponent(linkName);
+    }
+    
+    alert(encodeString);
+    
+    xmlhttp.open("GET", encodeString,true);
     xmlhttp.send();
 }
 </script>
@@ -98,7 +100,7 @@ function log(location, pageName, linkName) {
         <!-- Page Header -->
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header"><a href='../gallery/gallery.php' onclick="log(null,null,'back to slider')">Thinking of You</a></h1> 
+                <h1 class="page-header"><a href='../gallery/gallery.php' onclick="log('','','back to slider')">Thinking of You</a></h1> 
             </div>
         </div>
         <!-- /.row -->
@@ -122,8 +124,8 @@ echo "<div class='row'>";
                        
                        echo "<div class='col-md-4 portfolio-item'>";
                        echo "<a href='#'>";
-                       echo "<img class='img-responsive' src='../image/".$data["location"]."' alt=''>";
-                       echo "</a>";
+                       echo "<img class='img-responsive' src='../image/".$data["location"]."'"; 
+                       echo "onclick='myFunction(\"".$data['firstName']."\",\"".$data['phoneNumber']."\")' alt=''>";
                        echo "<h3>";
                        echo "<a href='#' ><center><font color='".$data["color"]."'>".$data["firstName"]."</font></center></a>";
                        echo "</h3>";

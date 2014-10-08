@@ -25,6 +25,7 @@
 
   </head>
   <body>
+
       <section>
         <div class="container bootshape">
             <form class="simple-login" role="form" action="login.php" method="post">
@@ -38,10 +39,10 @@
 			unset($_SESSION['ERRMSG_ARR']);
 			}
 		?>
-                <h1>Simple Login</h1>
+                <h1>Login</h1>
                 <input name="username" type="text" type="username" autofocus required placeholder="Username" class="form-control">
                 <input name="password" type="text" type="password" required placeholder="Password" class="form-control">
-                <button type="submit" class="btn btn-lg btn-primary btn-block">Login</button>
+                <button type="submit" class="btn btn-lg btn-primary btn-block" onclick="log(null,'Login','login');">Login</button>
                 <p class="forgot-password">
                 <a href="#" onclick="alert('Please call: 0424890297 - Lin');">Forget Password?</a>
 </p>

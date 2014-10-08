@@ -70,14 +70,8 @@ function log(location, pageName, linkName) {
     
     alert ("[" + location + "][" + pageName + "][" + linkName + "]");
     
-    if (location === null || location === "") location = "NULL";
-    
     //if no pageName given, use document title
     if (pageName === "" || pageName === null) pageName = document.title;
-    
-    alert("../log.php?location=" + encodeURIComponent(location)
-            + "&pageName=" + encodeURIComponent(pageName)
-            + "&linkName=" + encodeURIComponent(linkName));
     
     var xmlhttp=new XMLHttpRequest();
 //    xmlhttp.open("POST","../log.php",true);
@@ -85,13 +79,23 @@ function log(location, pageName, linkName) {
 //    xmlhttp.send("location=" + encodeURIComponent(location)
 //            + "&pageName=" + encodeURIComponent(pageName)
 //            + "&linkName=" + encodeURIComponent(linkName)
-    xmlhttp.open("GET","../log.php"
-            + "?location=" + encodeURIComponent(location)
-            + "&pageName=" + encodeURIComponent(pageName)
-            + "&linkName=" + encodeURIComponent(linkName),true);
+
+    var encodeString = "../log.php?pageName=" + encodeURIComponent(pageName);
+    if (location !== "" && location.toLowerCase() !== "null") {
+        encodeString += "&location=" + encodeURIComponent(location);
+    }
+    if (linkName !== "" && linkName.toLowerCase() !== "null") {
+        encodeString += "&linkName=" + encodeURIComponent(linkName);
+    }
+    
+    alert(encodeString);
+
+    xmlhttp.open("GET", encodeString,true);
     xmlhttp.send();
 }
 </script>
+
+<div style="z-index: 1000000; font-size: 100px; position: absolute; top: 0; left: 0; text-align: center; font-size: 200%;"><a href='../overview/index.php'>OVERVIEW</a></div>
 
     <!-- Full Page Image Background Carousel Header -->
     <header id="myCarousel" class="carousel slide">
@@ -220,8 +224,9 @@ function log(location, pageName, linkName) {
     <script>
     $('.carousel').carousel({
         interval: 5000 //changes the speed
-    })
+    });
     </script>
+    
 
 </body>
 
