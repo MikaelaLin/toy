@@ -27,7 +27,7 @@ $errflag = false;
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Thinking of You</title>
+    <title>TOY - Overview</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -50,12 +50,12 @@ $errflag = false;
 function myFunction(firstName, phoneNumber, location) {
 
     if (confirm("Send a message to " + firstName + ": 'I am thinking of You'.") == true) {
-        log(location, "Overview", "SmsSent");
+        log(location, "", "SmsSent");
         
-        alert(firstName + " " + phoneNumber);//print
-        alert("TextSender.php"
-                + "?name=" + encodeURIComponent(firstName)
-                + "&number=" + encodeURIComponent(phoneNumber));
+//        alert(firstName + " " + phoneNumber);//print
+//        alert("TextSender.php"
+//                + "?name=" + encodeURIComponent(firstName)
+//                + "&number=" + encodeURIComponent(phoneNumber));
         
         var xmlhttp=new XMLHttpRequest();
         xmlhttp.open("GET","../TextSender.php"
@@ -64,7 +64,7 @@ function myFunction(firstName, phoneNumber, location) {
                 ,true);
         xmlhttp.send();
     } else {
-        log(location, "Overview", "SmsCancel");
+        log(location, "", "SmsCancel");
     }
     document.getElementById("demo").innerHTML = x;
     
@@ -72,7 +72,7 @@ function myFunction(firstName, phoneNumber, location) {
 
 function log(location, pageName, linkName) {
     
-    alert ("[" + location + "][" + pageName + "][" + linkName + "]");
+//    alert ("[" + location + "][" + pageName + "][" + linkName + "]");
     
     //if no pageName given, use document title
     if (pageName === "" || pageName === null) pageName = document.title;
@@ -92,7 +92,7 @@ function log(location, pageName, linkName) {
         encodeString += "&linkName=" + encodeURIComponent(linkName);
     }
     
-    alert(encodeString);
+//    alert(encodeString);
 
     xmlhttp.open("GET", encodeString,true);
     xmlhttp.send();
@@ -101,18 +101,19 @@ function log(location, pageName, linkName) {
 
     <!-- Page Content -->
     <div class="container">
-
+        <div style="z-index: 1000000; font-size: 100px; position: absolute; top: 0; left: 30px;  font-size: 300%;"><a href='../gallery/gallery.php' onclick="log('','','back to slider')"><<--</a></div>
+                
         <!-- Page Header -->
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header"><a href='../gallery/gallery.php' onclick="log('','','back to slider')">Thinking of You</a></h1> 
+                <h1 class="page-header" style="color:#bdc3c7">Thinking of You</h1>
             </div>
         </div>
         <!-- /.row -->
 <?php
         $userID = $_SESSION['SESS_USER_ID'];
         $userName = $_SESSION['SESS_USER_NAME'];
-        $query = "select * from photo where userID = '$userID' and relationship = 'Friend'";
+        $query = "select * from photo where userID = '$userID' and relationship = 'Family'";
         $result=mysql_query($query);
         //$resultarray = mysql_fetch_assoc($result);
 echo "<div class='row'>";
@@ -133,7 +134,7 @@ echo "<div class='row'>";
                        //echo "onclick='myFunction(\"".$data['firstName']."\",\"".$data['phoneNumber']."\")' alt=''>";
                        printf("onclick='myFunction(\"%s\",\"%s\",\"%s\");' alt=''>", $data['firstName'], $data['phoneNumber'], $data['location']);
                        echo "<h3>";
-                       echo "<a href='#' ><center><font color='".$data["color"]."'>".$data["firstName"]."</font></center></a>";
+                       echo "<a><center><font color='".$data["color"]."'>".$data["firstName"]."</font></center></a>";
                        echo "</h3>";
                        echo "</div>";
                     }
@@ -152,58 +153,16 @@ echo "<div class='row'>";
 		die("Query failed");
 	}
 echo "</div>";
-        
 
-        $query1 = "select * from photo where userID = '$userID' and relationship = 'Colleague'";
-        $result1=mysql_query($query1);
-        //$resultarray = mysql_fetch_assoc($result);
-echo "<div class='row'>";
-        if($result1) {
-		if(mysql_num_rows($result1) > 0) {
-                    echo 1;
-                    
-                    while ($data1 = mysql_fetch_assoc($result1)) {
-                        //$str = '..'.'&#47;'.'image'.'&#47;'.$data['location'];
-                        //echo $data['location'];
-                       //echo $data["firstName"];
-                       //echo $data["location"];
-                       //echo $data["color"];
-                       
-                       echo "<div class='col-md-4 portfolio-item'>";
-                       echo "<a href='#'>";
-                       echo "<img class='img-responsive' src='../image/".$data1["location"]."' alt=''>";
-                       echo "</a>";
-                       echo "<h3>";
-                       echo "<a href='#' ><center><font color='".$data1["color"]."'>".$data1["firstName"]."</font></center></a>";
-                       echo "</h3>";
-                       echo "</div>";
-                    }
-			//exit();
-		}
-//                else {
-//			$errmsg_arr[] = 'no image found';
-//			$errflag = true;
-//			if($errflag) {
-//				$_SESSION['ERRMSG_ARR'] = $errmsg_arr;
-//				session_write_close();
-//                                
-//				exit();
-//			}
-//		}
-	}else {
-		die("Query failed");
-	}
-echo "</div>";
-
-        $query2 = "select * from photo where userID = '$userID' and relationship = 'Family'";
+        $query2 = "select * from photo where userID = '$userID' and relationship = 'Friend'";
         $result2=mysql_query($query2);
         //$resultarray = mysql_fetch_assoc($result);
 echo "<div class='row'>";
-        if($result2) {
+                if($result2) {
 		if(mysql_num_rows($result2) > 0) {
                     
                     
-                    while ($data = mysql_fetch_assoc($result1)) {
+                    while ($data = mysql_fetch_assoc($result2)) {
                         //$str = '..'.'&#47;'.'image'.'&#47;'.$data['location'];
                         //echo $data['location'];
                        //echo $data["firstName"];
@@ -212,67 +171,25 @@ echo "<div class='row'>";
                        
                        echo "<div class='col-md-4 portfolio-item'>";
                        echo "<a href='#'>";
-                       echo "<img class='img-responsive' src='../image/".$data["location"]."' alt=''>";
-                       echo "</a>";
+                       echo "<img class='img-responsive' src='../image/".$data["location"]."'"; 
+                       //echo "onclick='myFunction(\"".$data['firstName']."\",\"".$data['phoneNumber']."\")' alt=''>";
+                       printf("onclick='myFunction(\"%s\",\"%s\",\"%s\");' alt=''>", $data['firstName'], $data['phoneNumber'], $data['location']);
                        echo "<h3>";
-                       echo "<a href='#' ><center><font color='".$data["color"]."'>".$data["firstName"]."</font></center></a>";
+                       echo "<a><center><font color='".$data["color"]."'>".$data["firstName"]."</font></center></a>";
                        echo "</h3>";
                        echo "</div>";
                     }
 			//exit();
+		}else {
+			$errmsg_arr[] = 'no image found';
+			$errflag = true;
+			if($errflag) {
+				$_SESSION['ERRMSG_ARR'] = $errmsg_arr;
+				session_write_close();
+                                
+				exit();
+			}
 		}
-//                else {
-//			$errmsg_arr[] = 'no image found';
-//			$errflag = true;
-//			if($errflag) {
-//				$_SESSION['ERRMSG_ARR'] = $errmsg_arr;
-//				session_write_close();
-//                                
-//				exit();
-//			}
-//		}
-	}else {
-		die("Query failed");
-	}
-echo "</div>";
-
-        $userID3 = $_SESSION['SESS_USER_ID'];
-        $query3 = "select * from photo where userID = '$userID3' and relationship = 'Schoolmate'";
-        $result3 =mysql_query($query3);
-        //$resultarray = mysql_fetch_assoc($result);
-echo "<div class='row'>";
-        if($result3) {
-		if(mysql_num_rows($result3) > 0) {
-                    
-                    
-                    while ($data = mysql_fetch_assoc($result3)) {
-                        //$str = '..'.'&#47;'.'image'.'&#47;'.$data['location'];
-                        //echo $data['location'];
-                       //echo $data["firstName"];
-                       //echo $data["location"];
-                       //echo $data["color"];
-                       
-                       echo "<div class='col-md-4 portfolio-item'>";
-                       echo "<a href='#'>";
-                       echo "<img class='img-responsive' src='../image/".$data["location"]."' alt=''>";
-                       echo "</a>";
-                       echo "<h3>";
-                       echo "<a href='#' ><center><font color='".$data["color"]."'>".$data["firstName"]."</font></center></a>";
-                       echo "</h3>";
-                       echo "</div>";
-                    }
-			//exit();
-		}
-//                else {
-//			$errmsg_arr[] = 'no image found';
-//			$errflag = true;
-//			if($errflag) {
-//				$_SESSION['ERRMSG_ARR'] = $errmsg_arr;
-//				session_write_close();
-//                                
-//				exit();
-//			}
-//		}
 	}else {
 		die("Query failed");
 	}

@@ -26,7 +26,7 @@ $errflag = false;
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Thinking of You</title>
+    <title>TOY - Photo Album</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -48,12 +48,12 @@ $errflag = false;
 function myFunction(firstName, phoneNumber, location) {
 
     if (confirm("Send a message to " + firstName + ": 'I am thinking of You'.") == true) {
-        log(location, "Slider", "SmsSent");
+        log(location, "", "SmsSent");
         
-        alert(firstName + " " + phoneNumber);//print
-        alert("TextSender.php"
-                + "?name=" + encodeURIComponent(firstName)
-                + "&number=" + encodeURIComponent(phoneNumber));
+//        alert(firstName + " " + phoneNumber);//print
+//        alert("TextSender.php"
+//                + "?name=" + encodeURIComponent(firstName)
+//                + "&number=" + encodeURIComponent(phoneNumber));
         
         var xmlhttp=new XMLHttpRequest();
         xmlhttp.open("GET","../TextSender.php"
@@ -62,7 +62,7 @@ function myFunction(firstName, phoneNumber, location) {
                 ,true);
         xmlhttp.send();
     } else {
-        log(location, "Slider", "SmsCancel");
+        log(location, "", "SmsCancel");
     }
     document.getElementById("demo").innerHTML = x;
     
@@ -70,7 +70,7 @@ function myFunction(firstName, phoneNumber, location) {
 
 function log(location, pageName, linkName) {
     
-    alert ("[" + location + "][" + pageName + "][" + linkName + "]");
+//    alert ("[" + location + "][" + pageName + "][" + linkName + "]");
     
     //if no pageName given, use document title
     if (pageName === "" || pageName === null) pageName = document.title;
@@ -90,14 +90,14 @@ function log(location, pageName, linkName) {
         encodeString += "&linkName=" + encodeURIComponent(linkName);
     }
     
-    alert(encodeString);
+//    alert(encodeString);
 
     xmlhttp.open("GET", encodeString,true);
     xmlhttp.send();
 }
 </script>
 
-<div style="z-index: 1000000; font-size: 100px; position: absolute; top: 0; left: 0; text-align: center; font-size: 200%;"><a href='../overview/index.php' onclick="log('','','go to overview')">OVERVIEW</a></div>
+<div style="z-index: 1000000; font-size: 100px; position: absolute; top: 0; left: 30px;  font-size: 300%;"><a href='../overview/index.php' onclick="log('','','go to overview')">-->></a></div>
 
     <!-- Full Page Image Background Carousel Header -->
     <header id="myCarousel" class="carousel slide">
@@ -206,10 +206,10 @@ function log(location, pageName, linkName) {
         </div>
 
         <!-- Controls -->
-        <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+        <a class="left carousel-control" href="#myCarousel" data-slide="prev" onclick="log('','','Privious')">
             <span class="icon-prev"></span>
         </a>
-        <a class="right carousel-control" href="#myCarousel" data-slide="next">
+        <a class="right carousel-control" href="#myCarousel" data-slide="next" onclick="log('','','Next')">
             <span class="icon-next"></span>
         </a>
 
