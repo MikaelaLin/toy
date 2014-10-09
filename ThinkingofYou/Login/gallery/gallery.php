@@ -45,9 +45,10 @@ $errflag = false;
 
 <body>
 <script>
-function myFunction(firstName, phoneNumber) {
+function myFunction(firstName, phoneNumber, location) {
 
-    if (confirm("Send a message to say: 'I am thinking of You'.") == true) {
+    if (confirm("Send a message to " + firstName + ": 'I am thinking of You'.") == true) {
+        log(location, "Slider", "SmsSent");
         
         alert(firstName + " " + phoneNumber);//print
         alert("TextSender.php"
@@ -61,9 +62,10 @@ function myFunction(firstName, phoneNumber) {
                 ,true);
         xmlhttp.send();
     } else {
-
+        log(location, "Slider", "SmsCancel");
     }
     document.getElementById("demo").innerHTML = x;
+    
 }
 
 function log(location, pageName, linkName) {
@@ -130,7 +132,8 @@ function log(location, pageName, linkName) {
                         echo "<div class='item active'>";
                         echo "<div class='fill'"."$nbsp style='background-image:url("; 
                         echo "../image/".$data['location']; 
-                        echo ");' onclick='myFunction(\"".$data['firstName']."\",\"".$data['phoneNumber']."\")'></div>";
+                        //echo ");' onclick='myFunction(\"".$data['firstName']."\",\"".$data['phoneNumber']."\",\"".$data['location']."\")'></div>";
+                        printf(");' onclick='myFunction(\"%s\",\"%s\",\"%s\");'></div>", $data['firstName'], $data['phoneNumber'], $data['location']);
                         echo "<div class='carousel-caption'>";
                         echo "<h2>"."<font color='".$data['color']."'>".$data['firstName']."</font></h2>";
                         //echo "<h2>Nurka</h2>";
@@ -172,10 +175,10 @@ function log(location, pageName, linkName) {
                         echo "<div class='item'>";
                         echo "<div class='fill'"."$nbsp style='background-image:url("; 
                         echo "../image/".$data['location']; 
-                        echo ");' onclick='myFunction(\"".$data['firstName']."\", \"".$data['phoneNumber']."\")'></div>";
+                        //echo ");' onclick='myFunction(\"".$data['firstName']."\",\"".$data['phoneNumber']."\",\"".$data['location']."\")'></div>";
+                        printf(");' onclick='myFunction(\"%s\",\"%s\",\"%s\");'></div>", $data['firstName'], $data['phoneNumber'], $data['location']);
                         echo "<div class='carousel-caption'>";
                         echo "<h2>"."<font color='".$data['color']."'>".$data['firstName']."</font></h2>";
-                        //echo "<h2>Nurka</h2>";
                         echo "</div>";
                         echo "</div>";
                     }

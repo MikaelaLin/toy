@@ -11,6 +11,11 @@ require_once('dbconnection.php');
 $fields = array();
 $params = array();
 
+//echo "howdy1<br>";
+//echo "[" . isset($_SESSION['SESS_USER_NAME']) . "]<br>";
+//echo "[" .  !empty($_SESSION['SESS_USER_NAME']) . "]<br>";
+//echo "[" . $_SESSION['SESS_USER_NAME'] . "]<br><br>";
+
 if (isset($_SESSION['SESS_USER_NAME']) && !empty($_SESSION['SESS_USER_NAME'])) {
     array_push($fields, "userName");
     array_push($params, $_SESSION['SESS_USER_NAME']);

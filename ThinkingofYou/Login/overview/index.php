@@ -49,7 +49,7 @@ $errflag = false;
 <script>
 function myFunction(firstName, phoneNumber) {
 
-    if (confirm("Send a message to say: 'I am thinking of You'.") == true) {
+    if (confirm("Send a message to " + firstName + ": 'I am thinking of You'.") == true) {
         
         alert(firstName + " " + phoneNumber);//print
         
