@@ -47,11 +47,15 @@ $errflag = false;
 <body>
 
 <script>
-function myFunction(firstName, phoneNumber) {
+function myFunction(firstName, phoneNumber, location) {
 
     if (confirm("Send a message to " + firstName + ": 'I am thinking of You'.") == true) {
+        log(location, "Overview", "SmsSent");
         
         alert(firstName + " " + phoneNumber);//print
+        alert("TextSender.php"
+                + "?name=" + encodeURIComponent(firstName)
+                + "&number=" + encodeURIComponent(phoneNumber));
         
         var xmlhttp=new XMLHttpRequest();
         xmlhttp.open("GET","../TextSender.php"
@@ -60,9 +64,10 @@ function myFunction(firstName, phoneNumber) {
                 ,true);
         xmlhttp.send();
     } else {
-
+        log(location, "Overview", "SmsCancel");
     }
     document.getElementById("demo").innerHTML = x;
+    
 }
 
 function log(location, pageName, linkName) {
@@ -88,7 +93,7 @@ function log(location, pageName, linkName) {
     }
     
     alert(encodeString);
-    
+
     xmlhttp.open("GET", encodeString,true);
     xmlhttp.send();
 }
@@ -125,7 +130,8 @@ echo "<div class='row'>";
                        echo "<div class='col-md-4 portfolio-item'>";
                        echo "<a href='#'>";
                        echo "<img class='img-responsive' src='../image/".$data["location"]."'"; 
-                       echo "onclick='myFunction(\"".$data['firstName']."\",\"".$data['phoneNumber']."\")' alt=''>";
+                       //echo "onclick='myFunction(\"".$data['firstName']."\",\"".$data['phoneNumber']."\")' alt=''>";
+                       printf("onclick='myFunction(\"%s\",\"%s\",\"%s\");' alt=''>", $data['firstName'], $data['phoneNumber'], $data['location']);
                        echo "<h3>";
                        echo "<a href='#' ><center><font color='".$data["color"]."'>".$data["firstName"]."</font></center></a>";
                        echo "</h3>";
