@@ -97,7 +97,7 @@ function log(location, pageName, linkName) {
 }
 </script>
 
-<div style="z-index: 1000000; font-size: 100px; position: absolute; top: 0; left: 0; text-align: center; font-size: 200%;"><a href='../overview/index.php'>OVERVIEW</a></div>
+<div style="z-index: 1000000; font-size: 100px; position: absolute; top: 0; left: 0; text-align: center; font-size: 200%;"><a href='../overview/index.php' onclick="log('','','go to overview')">OVERVIEW</a></div>
 
     <!-- Full Page Image Background Carousel Header -->
     <header id="myCarousel" class="carousel slide">
