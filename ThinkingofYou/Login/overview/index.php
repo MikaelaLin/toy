@@ -154,7 +154,8 @@ echo "<div class='row'>";
 	}
 echo "</div>";
 
-        $query2 = "select * from photo where userID = '$userID' and relationship = 'Friend'";
+
+        $query2 = "select * from photo where userID = '$userID' and relationship = 'Other'";
         $result2=mysql_query($query2);
         //$resultarray = mysql_fetch_assoc($result);
 echo "<div class='row'>";
@@ -163,6 +164,46 @@ echo "<div class='row'>";
                     
                     
                     while ($data = mysql_fetch_assoc($result2)) {
+                        //$str = '..'.'&#47;'.'image'.'&#47;'.$data['location'];
+                        //echo $data['location'];
+                       //echo $data["firstName"];
+                       //echo $data["location"];
+                       //echo $data["color"];
+                       
+                       echo "<div class='col-md-4 portfolio-item'>";
+                       echo "<a href='#'>";
+                       echo "<img class='img-responsive' src='../image/".$data["location"]."'"; 
+                       //echo "onclick='myFunction(\"".$data['firstName']."\",\"".$data['phoneNumber']."\")' alt=''>";
+                       printf("onclick='myFunction(\"%s\",\"%s\",\"%s\");' alt=''>", $data['firstName'], $data['phoneNumber'], $data['location']);
+                       echo "<h3>";
+                       echo "<a><center><font color='".$data["color"]."'>".$data["firstName"]."</font></center></a>";
+                       echo "</h3>";
+                       echo "</div>";
+                    }
+			//exit();
+		}else {
+			$errmsg_arr[] = 'no image found';
+			$errflag = true;
+			if($errflag) {
+				$_SESSION['ERRMSG_ARR'] = $errmsg_arr;
+				session_write_close();
+			}
+		}
+	}else {
+		die("Query failed");
+	}
+echo "</div>";
+
+
+        $query3 = "select * from photo where userID = '$userID' and relationship = 'Friend'";
+        $result3=mysql_query($query3);
+        //$resultarray = mysql_fetch_assoc($result);
+echo "<div class='row'>";
+                if($result3) {
+		if(mysql_num_rows($result3) > 0) {
+                    
+                    
+                    while ($data = mysql_fetch_assoc($result3)) {
                         //$str = '..'.'&#47;'.'image'.'&#47;'.$data['location'];
                         //echo $data['location'];
                        //echo $data["firstName"];
