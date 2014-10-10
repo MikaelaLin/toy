@@ -226,7 +226,7 @@ function log(location, pageName, linkName) {
     <!-- Script to Activate the Carousel -->
     <script>
     $('.carousel').carousel({
-        interval: 5000 //changes the speed
+        interval: 20000 //changes the speed
     });
     </script>
     
